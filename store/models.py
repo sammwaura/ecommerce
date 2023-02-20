@@ -12,7 +12,7 @@ class Customer(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
     price = models.FloatField()
-    digital = models.BooleanField(default=False, null=True, blank=False)
+    delivery = models.BooleanField(default=False, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
     def __str__(self):
         return self.name
@@ -34,6 +34,16 @@ class Order(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def delivery(self):
+        delivery = False
+        orderitems = self.orderitem_set.all()
+        for i in orderitems:
+            if i.product.delivery == False:
+                delivery = True
+
+        return delivery
 
     @property
     def get_cart_total(self):

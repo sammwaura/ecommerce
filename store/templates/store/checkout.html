@@ -14,7 +14,7 @@
                         </div>  
                     </div>
 
-                    <div id="shipping-info">
+                    <div id="delivery-info">
                         <hr>
                         <p>Delivery Information:</p>
                         <hr>
@@ -70,5 +70,13 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        var delivery = '{{order.delivery}}'
+
+        if(delivery == 'False'){
+            document.getElementById('delivery-info').innerHTML = ''
+        }
+    </script>
 
 {% endblock content %}
