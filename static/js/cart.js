@@ -20,11 +20,12 @@ function updateUserOrder(productId, action){
     console.log('User is logged in, sending data....')
 
     var url = '/update_item/'
-
+    console.log('URL:', url)
     fetch(url, {
         method: 'POST',
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'X-CSRFToken': csrftoken,
         },
         body:JSON.stringify({'productId': productId, 'action': action})
     })
@@ -33,7 +34,9 @@ function updateUserOrder(productId, action){
         return response.json()
     })
 
-    .then((data) =>{
-        console.log('data', data)
+    .then((data)=>{
+        console.log('data:', data)
     })
+
+    
 }
