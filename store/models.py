@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+# Create your models here.
+
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
@@ -11,8 +14,8 @@ class Customer(models.Model):
 
 class Product(models.Model):
     name = models.CharField(max_length=200, null=True)
-    price = models.FloatField()
-    delivery = models.BooleanField(default=False, null=True, blank=False)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
+    deliverys = models.BooleanField(default=True, null=True, blank=False)
     image = models.ImageField(null=True, blank=True)
     def __str__(self):
         return self.name
@@ -40,7 +43,7 @@ class Order(models.Model):
         delivery = False
         orderitems = self.orderitem_set.all()
         for i in orderitems:
-            if i.product.delivery == False:
+            if i.product.deliverys == False:
                 delivery = True
 
         return delivery
@@ -85,4 +88,3 @@ class DeliveryAddress(models.Model):
         return self.address
 
 
-# Create your models here.

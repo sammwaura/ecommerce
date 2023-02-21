@@ -109,7 +109,7 @@
             var userFormData = {
                 'name':null,
                 'email':null,
-                'total':null,
+                'total':total,
             }
 
             var deliveryInfo = {
@@ -132,11 +132,10 @@
             if(user == 'AnonymousUser'){
                 userFormData.name = form.name.value
                 userFormData.email = form.email.value
-                userFormData.total = form.total.value
             }
 
             var url = '/process_order/'
-            fetch(url,{
+            fetch(url, {
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json',
