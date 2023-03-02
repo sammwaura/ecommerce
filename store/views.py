@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse 
 import json
 import datetime
-
-
 from .models import *
+from django_daraja.mpesa.core import MpesaClient
 
 
 # Create your views here.
+
 def store(request):
     # if request.user.is_authenticated:
     #     customer = request.user.customer
@@ -106,6 +106,21 @@ def processOrder(request):
         print('User is not logged in...')
 
     return JsonResponse('Payment Complete!', safe=False)
+
+def mpesa(request):
+    cl = MpesaClient()
+    phone_number = '0740116783'
+    amount = 1
+    account_reference = 'reference'
+    transaction_desc = 'Description'
+    callback_url = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+    response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+    return HttpResponse(response)
+
+def stk_push_callback(request):
+    data = request.body
+
+    return HttpResponse("Stk push")
 
 
 

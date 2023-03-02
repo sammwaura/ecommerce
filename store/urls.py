@@ -9,4 +9,7 @@ urlpatterns = [
 
     path('update_item/', views.updateItem, name="update_item"),
      path('process_order/', views.processOrder, name="process_order"),
+     path('', views.mpesa, name="mpesa"),
+     path('daraja/stk_push', views.stk_push_callback, name="stk_push_callback")
+    
 ]
