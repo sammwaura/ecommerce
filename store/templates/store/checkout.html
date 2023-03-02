@@ -48,9 +48,15 @@
         </div>
         <br>
         <div class="box-element hidden" id="payment-info">
-            <small>Paypal Options</small>
+            <small>Payment Options</small><br>
+            <br>
+            <br>
+
+            <div id='mpesaButton' data-phone='254722XXXXXX' data-amount=3000 data-url='https://domain.com/mpesa/payments/request'></div>
+                <br>
             <div id="paypal-button-container"></div>
         </div>
+        
 
         <div class="col-lg-6">
             <div class="box-element">
@@ -71,6 +77,39 @@
             </div>
         </div>
     </div>
+
+    {% comment %} import requests
+
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer sdmPuMmvSEyFDncnoebptZA1SEIU'
+}
+
+payload = {
+    "BusinessShortCode": 174379,
+    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjMwMzAyMTIzNzMz",
+    "Timestamp": "20230302123733",
+    "TransactionType": "CustomerPayBillOnline",
+    "Amount": 1,
+    "PartyA": 254708374149,
+    "PartyB": 174379,
+    "PhoneNumber": 254708374149,
+    "CallBackURL": "https://mydomain.com/path",
+    "AccountReference": "CompanyXLTD",
+    "TransactionDesc": "Payment of X" 
+  } {% endcomment %}
+
+   <script src = https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest></script>
+
+   <script>  
+    (function(d, s, id){
+       var js, mpesa = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://cdn.jsdelivr.net/gh/muaad/mpesa_button@master/src/button.min.js";
+       mpesa.parentNode.insertBefore(js, mpesa);
+     }(document, 'script', 'mpesa_btn_js'));
+  </script>
 
     <script src="https://www.paypal.com/sdk/js?client-id=AYgAB_BqxYNWNHrfREKpwPRIbL5Lk-dCehzQAXI1yH71jo83TOSvpNNii1RIWkjxyAdCFN6Zes2o8KhI&currency=USD&disable-funding=credit"></script>
 
@@ -98,7 +137,7 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     // Show a success message to the buyer
-                    alert('Transaction completed by' + details.payer.name.given_name + '!');
+                    submitFormData()
                 });
             }
         }).render('#paypal-button-container');
